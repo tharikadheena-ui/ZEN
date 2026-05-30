@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+const { protect } = require('./middleware/authMiddleware');
 
 dotenv.config();
 connectDB();
@@ -16,6 +17,9 @@ app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
     res.json({message: 'Zen API is running!'});
+});
+app.get('/api/protected', protect, (req, res) => {
+  res.json({ message: `Hello ${req.user.name}, you are authorized! 🔐` });
 });
 
 const PORT = process.env.PORT || 5000;
