@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+const subjectRoutes = require('./routes/subjectRoutes');
 const { protect } = require('./middleware/authMiddleware');
 
 dotenv.config();
@@ -14,6 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
+app.use('/api/subjects', subjectRoutes);
 
 app.get('/', (req, res) => {
     res.json({message: 'Zen API is running!'});

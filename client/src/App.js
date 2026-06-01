@@ -4,6 +4,7 @@ import { useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Subjects from './pages/Subjects';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -23,6 +24,11 @@ const AppRoutes = () => {
             <Dashboard />
           </ProtectedRoute>
         } />
+        <Route path="/subjects" element={
+  <ProtectedRoute>
+    <Subjects />
+  </ProtectedRoute>
+} />
       </Routes>
     </Router>
   );

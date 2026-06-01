@@ -33,11 +33,11 @@ function Dashboard() {
           Your AI-powered learning journey starts here.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">📚 Quizzes</h3>
-            <p className="text-gray-500 text-sm">Take adaptive quizzes to test your knowledge</p>
-          </div>
+      <div onClick={() => navigate('/subjects')}
+      className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition">
+             <h3 className="text-lg font-semibold text-gray-800 mb-2">📚 Subjects</h3>
+             <p className="text-gray-500 text-sm">Manage your subjects and topics</p>
+      </div>  
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
             <h3 className="text-lg font-semibold text-gray-800 mb-2">📊 Analytics</h3>
             <p className="text-gray-500 text-sm">Track your performance over time</p>
@@ -48,7 +48,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-    </div>
+  
   );
 }
 
