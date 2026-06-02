@@ -1,3 +1,4 @@
+import SubjectDetails from './pages/SubjectDetails';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './context/AuthContext';
@@ -29,6 +30,14 @@ const AppRoutes = () => {
     <Subjects />
   </ProtectedRoute>
 } />
+        <Route
+  path="/subjects/:id"
+  element={
+    <ProtectedRoute>
+      <SubjectDetails />
+    </ProtectedRoute>
+  }
+/>
       </Routes>
     </Router>
   );

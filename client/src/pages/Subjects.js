@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 
 function Subjects() {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [subjects, setSubjects] = useState([]);
   const [name, setName] = useState('');
@@ -53,6 +55,7 @@ function Subjects() {
   };
 
   return (
+    
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm px-8 py-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold text-indigo-600">ZEN 🧘</h1>
@@ -124,12 +127,21 @@ function Subjects() {
                 <p className="text-gray-500 text-sm mb-4">
                   {subject.description || 'No description'}
                 </p>
-                <button
-                  onClick={() => handleDelete(subject._id)}
-                  className="text-red-500 text-sm hover:text-red-700 transition"
-                >
-                  Delete
-                </button>
+               <div className="flex justify-between items-center">
+  <button
+    onClick={() => navigate(`/subjects/${subject._id}`)}
+    className="bg-indigo-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-indigo-700 transition"
+  >
+    Open
+  </button>
+
+  <button
+    onClick={() => handleDelete(subject._id)}
+    className="text-red-500 text-sm hover:text-red-700 transition"
+  >
+    Delete
+  </button>
+</div>
               </div>
             ))}
           </div>

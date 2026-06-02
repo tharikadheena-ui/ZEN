@@ -10,7 +10,7 @@ const subjectSchema = new mongoose.Schema({
         type: String,
         trim: true
     },
-    colour: {
+    color: {
         type: String,
         trim: true
     },
