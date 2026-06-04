@@ -1,7 +1,8 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function SubjectDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen p-10">
@@ -13,7 +14,10 @@ function SubjectDetails() {
         Subject ID: {id}
       </p>
 
-      <button className="mt-6 bg-indigo-600 text-white px-6 py-3 rounded-lg">
+      <button
+        onClick={() => navigate(`/subjects/${id}/create-quiz`)}
+        className="mt-6 bg-indigo-600 text-white px-6 py-3 rounded-lg"
+      >
         + Create Quiz
       </button>
     </div>
@@ -21,3 +25,4 @@ function SubjectDetails() {
 }
 
 export default SubjectDetails;
+

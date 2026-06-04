@@ -1,4 +1,3 @@
-import SubjectDetails from './pages/SubjectDetails';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './context/AuthContext';
@@ -6,6 +5,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Subjects from './pages/Subjects';
+import CreateQuiz from './pages/CreateQuiz';
+import SubjectDetails from './pages/SubjectDetails';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -35,6 +36,14 @@ const AppRoutes = () => {
   element={
     <ProtectedRoute>
       <SubjectDetails />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/subjects/:id/create-quiz"
+  element={
+    <ProtectedRoute>
+      <CreateQuiz />
     </ProtectedRoute>
   }
 />
