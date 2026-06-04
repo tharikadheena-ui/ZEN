@@ -6,6 +6,8 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
 const { protect } = require('./middleware/authMiddleware');
+const quizRoutes = require('./routes/quizRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 
 dotenv.config();
 connectDB();
@@ -16,6 +18,8 @@ app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/subjects', subjectRoutes);
+app.use('/api/quizzes', quizRoutes);
+app.use('/api/ai', aiRoutes);
 
 app.get('/', (req, res) => {
     res.json({message: 'Zen API is running!'});
