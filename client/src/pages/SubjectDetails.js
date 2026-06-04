@@ -8,11 +8,11 @@ function SubjectDetails() {
 
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
-// eslint-disable-next-line react-hooks/exhaustive-deps
+// eslint-disable-next-line react-hooks/exhaustive-deps 
   useEffect(() => {
     fetchQuizzes();
   }, []);
-
+// eslint-disable-next-line
   const fetchQuizzes = async () => {
     try {
       const { data } = await api.get(`/quizzes/${id}`);
@@ -55,19 +55,26 @@ function SubjectDetails() {
       ) : (
         <div className="grid gap-4">
           {quizzes.map((quiz) => (
-            <div
-              key={quiz._id}
-              className="bg-white p-5 rounded-xl shadow"
-            >
-              <h3 className="text-xl font-semibold">
-                {quiz.title}
-              </h3>
+  <div
+    key={quiz._id}
+    className="bg-white p-5 rounded-xl shadow"
+  >
+    <h3 className="text-xl font-semibold">
+      {quiz.title}
+    </h3>
 
-              <p className="text-gray-500 mt-2">
-                {quiz.questions.length} Questions
-              </p>
-            </div>
-          ))}
+    <p className="text-gray-500 mt-2">
+      {quiz.questions.length} Questions
+    </p>
+
+    <button
+      onClick={() => navigate(`/quiz/${quiz._id}`)}
+      className="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+    >
+      Start Quiz 🚀
+    </button>
+  </div>
+    ))}
         </div>
       )}
 
