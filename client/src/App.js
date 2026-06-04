@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import Subjects from './pages/Subjects';
 import CreateQuiz from './pages/CreateQuiz';
 import SubjectDetails from './pages/SubjectDetails';
+import QuizPage from './pages/QuizPage';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -44,6 +45,14 @@ const AppRoutes = () => {
   element={
     <ProtectedRoute>
       <CreateQuiz />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/quiz/:id"
+  element={
+    <ProtectedRoute>
+      <QuizPage />
     </ProtectedRoute>
   }
 />
