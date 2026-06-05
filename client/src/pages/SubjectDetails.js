@@ -12,7 +12,6 @@ function SubjectDetails() {
   useEffect(() => {
     fetchQuizzes();
   }, []);
-// eslint-disable-next-line
   const fetchQuizzes = async () => {
     try {
       const { data } = await api.get(`/quizzes/${id}`);
