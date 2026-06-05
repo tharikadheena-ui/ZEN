@@ -8,6 +8,7 @@ const subjectRoutes = require('./routes/subjectRoutes');
 const { protect } = require('./middleware/authMiddleware');
 const quizRoutes = require('./routes/quizRoutes');
 const aiRoutes = require('./routes/aiRoutes');
+const resultRoutes = require("./routes/resultRoutes");
 
 dotenv.config();
 connectDB();
@@ -20,6 +21,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/subjects', subjectRoutes);
 app.use('/api/quizzes', quizRoutes);
 app.use('/api/ai', aiRoutes);
+app.use("/api/results", resultRoutes);
+app.use("/api/results/analytics", require("./routes/analyticsRoutes"));
 
 app.get('/', (req, res) => {
     res.json({message: 'Zen API is running!'});
@@ -27,6 +30,7 @@ app.get('/', (req, res) => {
 app.get('/api/protected', protect, (req, res) => {
   res.json({ message: `Hello ${req.user.name}, you are authorized! 🔐` });
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
