@@ -8,6 +8,8 @@ import Subjects from './pages/Subjects';
 import CreateQuiz from './pages/CreateQuiz';
 import SubjectDetails from './pages/SubjectDetails';
 import QuizPage from './pages/QuizPage';
+import Analytics from './pages/Analytics';
+
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -55,6 +57,9 @@ const AppRoutes = () => {
       <QuizPage />
     </ProtectedRoute>
   }
+/>
+<Route path="/analytics" element={<Analytics />
+} 
 />
       </Routes>
     </Router>

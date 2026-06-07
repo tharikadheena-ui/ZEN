@@ -29,6 +29,7 @@ const handleSubmit = () => {
   const fetchQuiz = async () => {
     try {
       const { data } = await api.get(`/quizzes/single/${id}`);
+      console.log(data);
       setQuiz(data);
     } catch (error) {
       console.error(error);

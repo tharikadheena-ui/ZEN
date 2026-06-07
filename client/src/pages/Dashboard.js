@@ -38,10 +38,17 @@ function Dashboard() {
              <h3 className="text-lg font-semibold text-gray-800 mb-2">📚 Subjects</h3>
              <p className="text-gray-500 text-sm">Manage your subjects and topics</p>
       </div>  
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">📊 Analytics</h3>
-            <p className="text-gray-500 text-sm">Track your performance over time</p>
-          </div>
+         <div
+          onClick={() => navigate('/analytics')}
+          className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition"
+>
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">
+           📊 Analytics
+          </h3>
+            <p className="text-gray-500 text-sm">
+               Track your performance over time
+               </p>
+         </div>
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
             <h3 className="text-lg font-semibold text-gray-800 mb-2">🤖 AI Insights</h3>
             <p className="text-gray-500 text-sm">Get personalized recommendations</p>

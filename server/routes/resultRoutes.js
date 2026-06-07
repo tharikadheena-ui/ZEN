@@ -26,14 +26,14 @@ router.post("/submit", async (req, res) => {
       const selected = userAnswer?.selectedAnswer;
 
       const isCorrect =
-        selected && selected === q.correctAnswer;
+        selected && selected === q.answer;
 
       if (isCorrect) correctAnswers++;
 
       formattedAnswers.push({
         questionId: q._id,
         selectedAnswer: selected || "",
-        correctAnswer: q.correctAnswer,
+        correctAnswer: q.answer,
         isCorrect,
       });
     });
@@ -61,6 +61,53 @@ router.post("/submit", async (req, res) => {
 
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+// 📊 Analytics
+router.get("/analytics/:userId", async (req, res) => {
+  try {
+    const results = await Result.find({
+      user: req.params.userId
+    });
+
+    if (results.length === 0) {
+      return res.json({
+        totalQuizzes: 0,
+        averageScore: 0,
+        accuracy: 0
+      });
+    }
+
+    const totalQuizzes = results.length;
+
+    const totalScore = results.reduce(
+      (sum, result) => sum + result.score,
+      0
+    );
+
+    const totalQuestions = results.reduce(
+      (sum, result) => sum + result.totalQuestions,
+      0
+    );
+
+    const averageScore = (
+      totalScore / totalQuizzes
+    ).toFixed(2);
+
+    const accuracy = (
+      (totalScore / totalQuestions) * 100
+    ).toFixed(2);
+
+    res.json({
+      totalQuizzes,
+      averageScore,
+      accuracy
+    });
+
+  } catch (err) {
+    res.status(500).json({
+      error: err.message
+    });
   }
 });
 
