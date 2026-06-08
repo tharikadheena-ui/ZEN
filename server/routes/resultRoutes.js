@@ -4,7 +4,7 @@ const router = express.Router();
 const Result = require("../models/Result");
 const Quiz = require("../models/Quiz");
 
-// 🧠 Submit Quiz
+// 🧠 SUBMIT QUIZ
 router.post("/submit", async (req, res) => {
   try {
     const { userId, quizId, subjectId, answers } = req.body;
@@ -20,27 +20,43 @@ router.post("/submit", async (req, res) => {
 
     quiz.questions.forEach((q) => {
       const userAnswer = answers.find(
-        (a) => a.questionId === q._id.toString()
+        (a) => a.questionId?.toString() === q._id.toString()
       );
 
-      const selected = userAnswer?.selectedAnswer;
+      const selected = userAnswer?.selectedAnswer || "";
+
+      // FIX: support both schemas safely
+      const correct = q.answer || q.correctAnswer;
+
+      console.log("Q:", q.question);
+      console.log("USER:", selected);
+      console.log("CORRECT:", correct);
 
       const isCorrect =
-        selected && selected === q.answer;
+        selected &&
+        correct &&
+        selected.toString().trim().toLowerCase() ===
+        correct.toString().trim().toLowerCase();
+
+      console.log("MATCH:", isCorrect);
 
       if (isCorrect) correctAnswers++;
 
       formattedAnswers.push({
         questionId: q._id,
-        selectedAnswer: selected || "",
-        correctAnswer: q.answer,
+        selectedAnswer: selected,
+        correctAnswer: correct,
         isCorrect,
       });
     });
 
     const totalQuestions = quiz.questions.length;
     const score = correctAnswers;
-    const percentage = (score / totalQuestions) * 100;
+
+    const percentage =
+      totalQuestions === 0
+        ? 0
+        : (score / totalQuestions) * 100;
 
     const result = await Result.create({
       user: userId,
@@ -61,53 +77,6 @@ router.post("/submit", async (req, res) => {
 
   } catch (err) {
     res.status(500).json({ error: err.message });
-  }
-});
-// 📊 Analytics
-router.get("/analytics/:userId", async (req, res) => {
-  try {
-    const results = await Result.find({
-      user: req.params.userId
-    });
-
-    if (results.length === 0) {
-      return res.json({
-        totalQuizzes: 0,
-        averageScore: 0,
-        accuracy: 0
-      });
-    }
-
-    const totalQuizzes = results.length;
-
-    const totalScore = results.reduce(
-      (sum, result) => sum + result.score,
-      0
-    );
-
-    const totalQuestions = results.reduce(
-      (sum, result) => sum + result.totalQuestions,
-      0
-    );
-
-    const averageScore = (
-      totalScore / totalQuizzes
-    ).toFixed(2);
-
-    const accuracy = (
-      (totalScore / totalQuestions) * 100
-    ).toFixed(2);
-
-    res.json({
-      totalQuizzes,
-      averageScore,
-      accuracy
-    });
-
-  } catch (err) {
-    res.status(500).json({
-      error: err.message
-    });
   }
 });
 
