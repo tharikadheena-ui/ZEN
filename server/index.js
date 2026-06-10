@@ -1,3 +1,5 @@
+require("dotenv").config();
+console.log("GEMINI:", process.env.GEMINI_API_KEY);
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -30,7 +32,6 @@ app.get('/', (req, res) => {
 app.get('/api/protected', protect, (req, res) => {
   res.json({ message: `Hello ${req.user.name}, you are authorized! 🔐` });
 });
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

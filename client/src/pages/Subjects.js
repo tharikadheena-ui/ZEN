@@ -1,7 +1,7 @@
+import api from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import api from '../utils/api';
 
 function Subjects() {
   const navigate = useNavigate();

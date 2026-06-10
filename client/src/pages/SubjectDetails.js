@@ -1,6 +1,6 @@
+import api from '../utils/api';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import api from '../utils/api';
 
 function SubjectDetails() {
   const { id } = useParams();
@@ -12,16 +12,25 @@ function SubjectDetails() {
   useEffect(() => {
     fetchQuizzes();
   }, []);
-  const fetchQuizzes = async () => {
-    try {
-      const { data } = await api.get(`/quizzes/${id}`);
-      setQuizzes(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+ const fetchQuizzes = async () => {
+  try {
+
+    console.log("🔥 CALLING AUTO QUIZ FOR:", id);
+
+    const res = await api.post("/quizzes/auto", {
+  subjectId: id
+});
+
+    console.log("AUTO QUIZ RESPONSE:", res.data);
+
+    setQuizzes([res.data]);
+
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-50 p-10">
