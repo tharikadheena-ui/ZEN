@@ -9,6 +9,7 @@ import CreateQuiz from './pages/CreateQuiz';
 import SubjectDetails from './pages/SubjectDetails';
 import QuizPage from './pages/QuizPage';
 import Analytics from './pages/Analytics';
+import AIInsights from "./pages/AIInsights";
 
 
 const ProtectedRoute = ({ children }) => {
@@ -58,11 +59,16 @@ const AppRoutes = () => {
     </ProtectedRoute>
   }
 />
+<Route
+  path="/ai-insights"
+  element={<AIInsights />}
+/>
 <Route path="/analytics" element={<Analytics />
 } 
 />
       </Routes>
     </Router>
+    
   );
 };
 

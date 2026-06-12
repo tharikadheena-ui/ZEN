@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const generateInsights = require("../utils/generateInsights");
+
 const Result = require("../models/Result");
 
 // 📊 GET USER ANALYTICS
@@ -8,7 +10,8 @@ router.get("/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const results = await Result.find({ user: userId });
+   const results = await Result.find();
+   console.log(results);
 
     if (!results.length) {
       return res.json({
@@ -26,14 +29,16 @@ router.get("/:userId", async (req, res) => {
     });
 
     const averageScore = totalScore / totalQuizzes;
-    const accuracy = (totalScore / totalQuestions) * 100;
+    const accuracy = totalQuestions > 0 ? (totalScore / totalQuestions) * 100 : 0;
+    const insights = generateInsights({totalQuizzes, accuracy});
 
-    res.json({
-      totalQuizzes,
-      averageScore,
-      accuracy: accuracy.toFixed(2),
-      message: "Analytics generated 🚀",
-    });
+   res.json({
+  totalQuizzes,
+  averageScore: averageScore.toFixed(2),
+  accuracy: accuracy.toFixed(2),
+  insights,
+  message: "Analytics generated 🚀",
+});
 
   } catch (err) {
     res.status(500).json({ error: err.message });
