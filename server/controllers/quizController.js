@@ -10,8 +10,7 @@ const Subject = require('../models/Subject');
 const createQuiz = async (req, res) => {
   try {
     const { title, subject } = req.body;
-
-    const questions = await generateAIQuiz(subject);
+   const questions = await aiUtils.generateAIQuiz(subject);
 
     const quiz = await Quiz.create({
       title,
@@ -19,7 +18,7 @@ const createQuiz = async (req, res) => {
       questions,
       user: req.user._id
     });
-
+    console.log("💾 QUIZ CREATED:", quiz);
     res.status(201).json(quiz);
 
   } catch (error) {

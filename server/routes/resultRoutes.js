@@ -26,8 +26,16 @@ router.post("/submit", async (req, res) => {
       const selected = userAnswer?.selectedAnswer || "";
 
       // FIX: support both schemas safely
-      const correct = q.answer || q.correctAnswer;
+   let correct = q.answer || q.correctAnswer;
 
+if (
+  correct === "0" ||
+  correct === "1" ||
+  correct === "2" ||
+  correct === "3"
+) {
+  correct = q.options[parseInt(correct)];
+}
       console.log("Q:", q.question);
       console.log("USER:", selected);
       console.log("CORRECT:", correct);

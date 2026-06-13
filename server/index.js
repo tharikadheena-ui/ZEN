@@ -1,5 +1,5 @@
 require("dotenv").config();
-console.log("GEMINI:", process.env.GEMINI_API_KEY);
+console.log("GROQ:", process.env.GROQ_API_KEY ? "Loaded ✅" : "Missing ❌");
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
